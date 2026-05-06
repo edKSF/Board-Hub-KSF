@@ -245,6 +245,7 @@ function ReppHeader({ open, setOpen }) {
 export default function App(){
   const [data,setData] = useState(load);
   const [editMode,setEditMode] = useState(false);
+  const [reppOpen,setReppOpen] = useState(true);
   const [filter,setFilter] = useState("all");
   const [openCards,setOpenCards] = useState({ governance:true });
   const [openSections,setOpenSections] = useState({});
