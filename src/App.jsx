@@ -194,21 +194,21 @@ function MemberCard({ m, i, update, editMode }) {
   return (
     <div className={"member" + (open ? " member-open" : "")}>
       <div className="avatar">
-        <Editable value={m.initials} onChange={v=>update(["members",i,"initials"],v)} editMode={editMode}/>
+        <Editable value={m.initials} onChange={v => update(["members", i, "initials"], v)} editMode={editMode} />
       </div>
       <div className="member-info">
-        <div className="member-header" onClick={()=>setOpen(o=>!o)}>
+        <div className="member-header" onClick={() => setOpen(o => !o)}>
           <div>
-            <strong><Editable value={m.name} onChange={v=>update(["members",i,"name"],v)} editMode={editMode}/></strong>
-            <span><Editable value={m.role} onChange={v=>update(["members",i,"role"],v)} editMode={editMode}/></span>
+            <strong><Editable value={m.name} onChange={v => update(["members", i, "name"], v)} editMode={editMode} /></strong>
+            <span><Editable value={m.role} onChange={v => update(["members", i, "role"], v)} editMode={editMode} /></span>
           </div>
           <span className="member-toggle">{open ? "▲" : "▼"}</span>
         </div>
         {open && (
-          <>
-            {m.email && <a href={"mailto:"+m.email} className="member-email">{m.email}</a>}
+          <div className="member-details">
+            {m.email && <a href={"mailto:" + m.email} className="member-email">{m.email}</a>}
             {m.bio && <p className="member-bio">{m.bio}</p>}
-          </>
+          </div>
         )}
       </div>
     </div>
