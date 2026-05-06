@@ -8,12 +8,56 @@ const seed = {
   subtitle: "A living board operating system for governance, development, program buildout, and community engagement.",
   eyebrow: "Kent Schools Foundation · BoardHub",
   quickActions: [
-    { id: "video", icon: "🎥", label: "Start Video", note: "Open the standing board Zoom or meeting room.", url: "", type: "link" },
-    { id: "minutes", icon: "🤖", label: "AI Minutes", note: "Open your minutes workspace or copy a minutes prompt.", url: "", type: "prompt", prompt: "Create concise board meeting minutes with sections for attendees, approvals, decisions, action items, owners, due dates, and follow-up items." },
-    { id: "poll", icon: "📋", label: "Create Poll", note: "Open the polling tool or copy a board poll prompt.", url: "", type: "prompt", prompt: "Create a board poll with a clear decision question, 3–5 response options, and a deadline for responses." },
-    { id: "slides", icon: "🎨", label: "Slide Outline", note: "Copy a board slide outline prompt.", url: "", type: "prompt", prompt: "Create a 6-slide board presentation outline with: Executive Summary, Strategic Priorities, Financial Snapshot, Board Decisions Needed, Risks/Dependencies, and Next Steps." },
-    { id: "docs", icon: "📁", label: "Documents", note: "Jump to the Google Drive document library.", url: "#documents", type: "scroll" },
-  ],
+  {
+    id: "video",
+    icon: "🎥",
+    label: "Start Video",
+    note: "Open the standing board Zoom meeting.",
+    url: "https://washingtonea.zoom.us/j/97126324578?pwd=a7MGapZ9OPaJOfi4o5Ej47Ak1urbxj.1",
+    type: "link"
+  },
+  {
+    id: "minutes",
+    icon: "📝",
+    label: "New Minutes Doc",
+    note: "Create a fresh Google Doc for board minutes.",
+    url: "https://docs.new",
+    type: "link"
+  },
+  {
+    id: "minutes-folder",
+    icon: "📚",
+    label: "Minutes Folder",
+    note: "Open prior board meeting minutes.",
+    url: "https://drive.google.com/drive/folders/1D-oPPGI11afEjPJkgxlxmifj167FWkFx",
+    type: "link"
+  },
+  {
+    id: "poll",
+    icon: "📋",
+    label: "Create Poll",
+    note: "Copy a board poll prompt.",
+    url: "",
+    type: "prompt",
+    prompt: "Create a board poll with a clear decision question, 3–5 response options, and a deadline for responses."
+  },
+  {
+    id: "slides",
+    icon: "🎨",
+    label: "Board Deck",
+    note: "Open the current board meeting deck.",
+    url: "https://drive.google.com/file/d/14RSnRiHFleDcO_4U-nUHb2l9Ud8qUv1R/view?usp=drive_link",
+    type: "link"
+  },
+  {
+    id: "docs",
+    icon: "📁",
+    label: "Documents",
+    note: "Open the full board Google Drive library.",
+    url: "",
+    type: "link"
+  },
+],
   metrics: [
     { label: "Active Workstreams", value: "4", note: "Board-facing priorities" },
     { label: "Near-Term Actions", value: "10", note: "Due before next meeting" },
