@@ -330,7 +330,7 @@ export default function App(){
     <div className="topbar">
       <div className="brand">KSF BoardHub</div>
       <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('repp')?.scrollIntoView({behavior:'smooth'})}>🎓 Repp CTE</button>
-      <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('roadmap')?.scrollIntoView({behavior:'smooth'})}>🗺️ Roadmap</button>
+      <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('roadmap')?.scrollIntoView({behavior:'smooth'})}>📊 KSF Dashboard</button>
       <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('members')?.scrollIntoView({behavior:'smooth'})}>👥 Members</button>
       <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('documents')?.scrollIntoView({behavior:'smooth'})}>📁 Docs</button>
       <button onClick={()=>setEditMode(!editMode)} className={editMode?"btn gold":"btn"}>{editMode ? "Exit edit mode" : "Edit mode"}</button>
@@ -510,8 +510,8 @@ export default function App(){
       <section className="panel repp-panel" id="roadmap" style={{marginTop:16}}>
         <div className="panel-header" style={{cursor:"pointer"}} onClick={()=>setRoadmapOpen(o=>!o)}>
           <div>
-            <div className="section-kicker">Wilbur Repp CTE Program</div>
-            <h3 style={{margin:0}}>Development Roadmap</h3>
+            <div className="section-kicker">KSF 2026</div>
+            <h3 style={{margin:0}}>KSF Executive Dashboard</h3>
           </div>
           <div style={{display:"flex",gap:8,alignItems:"center"}}>
             <a href="/repp-roadmap.html" target="_blank" className="btn ghost"
@@ -524,15 +524,15 @@ export default function App(){
         </div>
         {roadmapOpen && (
           <>
-            <p className="muted-note" style={{margin:"8px 0"}}>8-month CTE development plan — click sections to expand, track milestones and board focus areas.</p>
+            <p className="muted-note" style={{margin:"8px 0"}}>KSF live progress dashboard — track strategic priorities, edit inline, and monitor execution health.</p>
             <iframe
               src="/repp-roadmap.html"
-              title="Wilbur Repp 8-Month Development Plan"
+              title="KSF Executive Dashboard"
               style={{width:"100%",height:"85vh",border:"1px solid var(--line)",borderRadius:14,marginTop:4,display:"block"}}
             />
             <div className="panel" style={{marginTop:16,padding:0}}>
               <div className="panel-header" style={{padding:"16px 20px"}}>
-                <div><div className="section-kicker">Wilbur Repp CTE Program</div><h3>Roadmap Tasks</h3></div>
+                <div><div className="section-kicker">KSF 2026</div><h3>Dashboard Tasks</h3></div>
                 {editMode && <button className="btn" onClick={addRoadmapTask}>+ Add task</button>}
               </div>
               <div className="task-table">
