@@ -133,6 +133,14 @@ const seed = {
     { title: "Scholarship Event", time: "May 21, 2026 · 5:30 PM", location: "Kent Covenant Church", focus: "Board presence and student celebration" },
     { title: "Kent International Festival", time: "May 30, 2026 · 10 AM–5 PM", location: "Showare", focus: "KSF booth planning and community visibility" },
   ],
+  reppTasks: [
+    { title: "Confirm CTE program design framework with KSD", status: "Open", owner: "Marquise Dixon", due: "Jun 1, 2026", priority: "High" },
+    { title: "Identify industry partner leads for CTE cohort", status: "Open", owner: "Board", due: "Jun 15, 2026", priority: "High" },
+    { title: "Review Wilbur Repp estate gift intent document", status: "Open", owner: "All Board", due: "May 15, 2026", priority: "High" },
+    { title: "Schedule co-design session with KSD CTE staff", status: "Open", owner: "Marquise Dixon", due: "Jun 30, 2026", priority: "Medium" },
+    { title: "Draft scholar selection criteria for pilot cohort", status: "Open", owner: "Connie Compton", due: "Jul 15, 2026", priority: "Medium" },
+    { title: "Map mentor recruitment strategy", status: "Open", owner: "Randy Heath", due: "Jul 1, 2026", priority: "Medium" },
+  ],
   tasks: [
     { title: "Complete WA Charitable Solicitation & Trust state filings", status: "Open", owner: "Allison Parker", due: "May 15, 2026", priority: "High" },
     { title: "Identify Treasurer candidates – update at May meeting", status: "Open", owner: "All Board", due: "May 15, 2026", priority: "High" },
@@ -197,7 +205,7 @@ function ReppPanel() {
       <div className="panel-header" style={{cursor:"pointer"}} onClick={()=>setOpen(o=>!o)}>
         <div>
           <div className="section-kicker">Wilbur Repp CTE Program</div>
-          <h3 style={{margin:0}}>Hybrid Executive Dashboard</h3>
+          <h3 style={{margin:0}}>Wilbur Repp CTE Program Dashboard</h3>
         </div>
         <div style={{display:"flex",gap:8,alignItems:"center"}}>
           <a href="/repp-dashboard.html" target="_blank" className="btn ghost"
@@ -219,6 +227,24 @@ function ReppPanel() {
             style={{width:"100%",height:"85vh",border:"1px solid var(--line)",borderRadius:14,marginTop:8,display:"block"}}
             allowFullScreen
           />
+          <div className="panel" style={{marginTop:16}}>
+            <div className="panel-header">
+              <div><div className="section-kicker">Wilbur Repp CTE Program</div><h3>CTE Program Tasks</h3></div>
+              {editMode && <button className="btn" onClick={addReppTask}>+ Add task</button>}
+            </div>
+            <div className="task-table">
+              <div className="task-head"><span>Status</span><span>Action</span><span>Owner</span><span>Due</span><span>Priority</span></div>
+              {(data.reppTasks||[]).map((t,i)=>(
+                <div className={`task-row ${String(t.status).toLowerCase()==="complete"?"done":""}`} key={i}>
+                  <span className="status-cell"><label className="check-wrap"><input type="checkbox" checked={String(t.status||"").toLowerCase()==="complete"} onChange={e=>update(["reppTasks",i,"status"],e.target.checked?"Complete":"Open")}/><b>{String(t.status||"Open")}</b></label></span>
+                  <span><Editable value={t.title} onChange={v=>update(["reppTasks",i,"title"],v)} editMode={editMode} multiline/></span>
+                  <span><Editable value={t.owner} onChange={v=>update(["reppTasks",i,"owner"],v)} editMode={editMode}/></span>
+                  <span><Editable value={t.due} onChange={v=>update(["reppTasks",i,"due"],v)} editMode={editMode}/></span>
+                  <span><Pill tone={String(t.priority).toLowerCase()==="high"?"gold":"green"}><Editable value={t.priority} onChange={v=>update(["reppTasks",i,"priority"],v)} editMode={editMode}/></Pill></span>
+                </div>
+              ))}
+            </div>
+          </div>
         </>
       )}
     </section>
@@ -285,6 +311,7 @@ export default function App(){
 
   const addItem = (wIdx, sIdx) => update(["workstreams", wIdx, "sections", sIdx, "items"], [...data.workstreams[wIdx].sections[sIdx].items, "New item — click edit mode to update."]);
   const removeItem = (wIdx, sIdx, iIdx) => update(["workstreams", wIdx, "sections", sIdx, "items"], data.workstreams[wIdx].sections[sIdx].items.filter((_,i)=>i!==iIdx));
+  const addReppTask = () => update(["reppTasks"], [...(data.reppTasks||[]), { title:"New CTE task", status:"Open", owner:"Owner", due:"Date", priority:"Medium" }]);
   const addTask = () => update(["tasks"], [...data.tasks, { title:"New task", status:"Open", owner:"Owner", due:"Date", priority:"Medium" }]);
   const addDocument = () => update(["documents"], [...(data.documents || []), { name:"New board document", category:"Governance", uploaded:"Date", owner:"Owner", url:"https://drive.google.com/" }]);
   const removeDocument = (idx) => update(["documents"], (data.documents || []).filter((_,i)=>i!==idx));
