@@ -190,7 +190,7 @@ function Pill({ children, tone="green" }){ return <span className={`pill ${tone}
 
 
 function MemberCard({ m, i, update, editMode }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   return (
     <div className={"member" + (open ? " member-open" : "")}>
       <div className="avatar">
