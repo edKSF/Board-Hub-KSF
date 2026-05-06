@@ -189,6 +189,12 @@ const seed = {
     { name: "Teacher Appreciation Email Draft", category: "Communications", uploaded: "Apr 25, 2026", owner: "Marquise Dixon", url: "https://docs.google.com/document/d/1RMz53glGPmmDz5U9rdHc5GuVAXezMGnJUr8DbX4vYCw/edit" },
     { name: "Business Donation Levels", category: "Communications", uploaded: "Apr 19, 2026", owner: "Sharn Shoker", url: "https://drive.google.com/file/d/1hCF3vUfAhOWvXZU0gRQqBWCLViOPCNjj/view" },
     { name: "Classroom Enrichment Grant Report – May 2026", category: "Grants", uploaded: "May 2, 2026", owner: "Connie Compton", url: "https://drive.google.com/file/d/1xUcRu491irCqJiSzCXUd-PgUo5esWXVF/view" },
+    { name: "Wilbur Repp – Letter of Intent (Executed)", category: "Wilbur Repp CTE", uploaded: "Mar 25, 2026", owner: "Marquise Dixon", url: "https://drive.google.com/file/d/1LGLkaED8ZzY0polp45XsezSpqDpS1810/view" },
+    { name: "Wilbur Repp Proposal – Legacy Gift (Sept 2020)", category: "Wilbur Repp CTE", uploaded: "Feb 23, 2026", owner: "Marquise Dixon", url: "https://drive.google.com/file/d/1u8Gn3uvvCESFTKGrEG1XvHZkGxE-eoz3/view" },
+    { name: "Wilbur Repp – Meeting Notes (Apr 30, 2026)", category: "Wilbur Repp CTE", uploaded: "Apr 30, 2026", owner: "Marquise Dixon", url: "https://docs.google.com/document/d/1c8xOTJo61SZmFSw99CRctKSNxIScl-l9uNMJGCo7KZA/edit" },
+    { name: "Updates to CTE Dashboard", category: "Wilbur Repp CTE", uploaded: "Apr 29, 2026", owner: "Marquise Dixon", url: "https://docs.google.com/document/d/1pt5ffLV5RXt0ZPs28y-qT86gRnata1lAWz_fQfYHK-U/edit" },
+    { name: "KSF & CTE Alignment Conversation – Carol Cleveland (Apr 29)", category: "Wilbur Repp CTE", uploaded: "Apr 29, 2026", owner: "Marquise Dixon", url: "https://docs.google.com/document/d/125OxdisCJb5p55_TL2fR1aSmYh4ESPect6kO54rb8UA/edit" },
+    { name: "Donor Restricted Funds – Wilbur Repp Summary", category: "Wilbur Repp CTE", uploaded: "Apr 30, 2026", owner: "Jenny Buron", url: "https://drive.google.com/file/d/1CNvDBcn6HmGDLMEXvzHU01B0IIZaRfdF/view" },
   ],
 };
 
@@ -541,6 +547,14 @@ export default function App(){
         {roadmapOpen && (
           <>
             <p className="muted-note" style={{margin:"8px 0"}}>KSF development roadmap — track strategic priorities, edit inline, and monitor execution health.</p>
+          <div style={{display:"flex",gap:8,flexWrap:"wrap",margin:"10px 0"}}>
+            {data.documents.filter(d=>d.category==="Wilbur Repp CTE").map((d,i)=>(
+              <a key={i} href={d.url} target="_blank" rel="noopener noreferrer"
+                style={{fontSize:11,fontWeight:700,color:"var(--green)",background:"var(--sage-soft,#e8f0eb)",padding:"4px 10px",borderRadius:20,textDecoration:"none",border:"1px solid #c4d9c9"}}>
+                📄 {d.name}
+              </a>
+            ))}
+          </div>
             <iframe
               src="/repp-roadmap.html"
               title="KSF Executive Dashboard"
@@ -573,6 +587,14 @@ export default function App(){
         {reppOpen && (
           <>
             <p className="muted-note" style={{margin:"8px 0"}}>Interactive CTE strategy dashboard — expand sections, toggle edit mode, and track progress.</p>
+          <div style={{display:"flex",gap:8,flexWrap:"wrap",margin:"10px 0"}}>
+            {data.documents.filter(d=>d.category==="Wilbur Repp CTE").map((d,i)=>(
+              <a key={i} href={d.url} target="_blank" rel="noopener noreferrer"
+                style={{fontSize:11,fontWeight:700,color:"var(--green)",background:"var(--sage-soft,#e8f0eb)",padding:"4px 10px",borderRadius:20,textDecoration:"none",border:"1px solid #c4d9c9"}}>
+                📄 {d.name}
+              </a>
+            ))}
+          </div>
             <iframe
               src="/repp-dashboard.html"
               title="Wilbur Repp CTE Dashboard"
