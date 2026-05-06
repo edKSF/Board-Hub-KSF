@@ -255,6 +255,8 @@ export default function App(){
   const [editMode,setEditMode] = useState(false);
   const [reppOpen,setReppOpen] = useState(true);
   const [roadmapOpen,setRoadmapOpen] = useState(true);
+  const [tasksOpen,setTasksOpen] = useState(true);
+  const [docsOpen,setDocsOpen] = useState(true);
   const [filter,setFilter] = useState("all");
   const [openCards,setOpenCards] = useState({ governance:true });
   const [openSections,setOpenSections] = useState({});
@@ -470,7 +472,14 @@ export default function App(){
       </section>
 
       <section className="panel docs-panel" id="documents">
-        <div className="panel-header"><div><div className="section-kicker">Board Documents</div><h3>Google Drive Library</h3></div>{editMode && <button className="btn" onClick={addDocument}>+ Add document</button>}</div>
+        <div className="panel-header" style={{cursor:"pointer"}} onClick={()=>setDocsOpen(o=>!o)}>
+          <div><div className="section-kicker">Board Documents</div><h3>Google Drive Library</h3></div>
+          <div style={{display:"flex",gap:8,alignItems:"center"}}>
+            {editMode && <button className="btn" onClick={e=>{e.stopPropagation();addDocument();}}>+ Add document</button>}
+            <span style={{fontSize:18,color:"var(--muted)",fontWeight:700}}>{docsOpen?"▲":"▼"}</span>
+          </div>
+        </div>
+        {docsOpen && <>
         <p className="muted-note">Links open directly in Google Drive. Use edit mode to update titles, categories, owners, dates, or Drive URLs.</p>
         <div className="docs-grid">
           {Object.entries(docsByCategory).map(([category, docs]) => <div className="doc-category" key={category}>
@@ -495,8 +504,14 @@ export default function App(){
       </section>
 
       <section className="panel action-panel">
-        <div className="panel-header"><div><div className="section-kicker">Action Tracker</div><h3>Near-Term Board Actions</h3></div>{editMode && <button className="btn" onClick={addTask}>+ Add task</button>}</div>
-        <div className="task-table">
+        <div className="panel-header" style={{cursor:"pointer"}} onClick={()=>setTasksOpen(o=>!o)}>
+          <div><div className="section-kicker">Action Tracker</div><h3>Near-Term Board Actions</h3></div>
+          <div style={{display:"flex",gap:8,alignItems:"center"}}>
+            {editMode && <button className="btn" onClick={e=>{e.stopPropagation();addTask();}}>+ Add task</button>}
+            <span style={{fontSize:18,color:"var(--muted)",fontWeight:700}}>{tasksOpen?"▲":"▼"}</span>
+          </div>
+        </div>
+        {tasksOpen && <div className="task-table">
           <div className="task-head"><span>Status</span><span>Action</span><span>Owner</span><span>Due</span><span>Priority</span></div>
           {data.tasks.map((t,i)=><div className={`task-row ${String(t.status).toLowerCase()==="complete"?"done":""}`} key={i}>
             <span className="status-cell"><label className="check-wrap"><input type="checkbox" checked={String(t.status || "").toLowerCase()==="complete"} onChange={e=>update(["tasks",i,"status"], e.target.checked ? "Complete" : "Open")} /><b>{String(t.status || "Open")}</b></label></span>
