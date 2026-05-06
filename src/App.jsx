@@ -290,6 +290,9 @@ export default function App(){
   return <div>
     <div className="topbar">
       <div className="brand">KSF BoardHub</div>
+      <a href="#repp" className="btn ghost" style={{textDecoration:"none",fontSize:12}}>🎓 Repp CTE</a>
+      <a href="#members" className="btn ghost" style={{textDecoration:"none",fontSize:12}}>👥 Members</a>
+      <a href="#documents" className="btn ghost" style={{textDecoration:"none",fontSize:12}}>📁 Docs</a>
       <button onClick={()=>setEditMode(!editMode)} className={editMode?"btn gold":"btn"}>{editMode ? "Exit edit mode" : "Edit mode"}</button>
       <button className="btn ghost" onClick={exportEdits}>Export edits</button>
       <button className="btn ghost signout" onClick={()=>{localStorage.removeItem("ksf_auth");window.location.reload();}}>Sign Out</button>
@@ -463,6 +466,23 @@ export default function App(){
             <span><Pill tone={String(t.priority).toLowerCase()==="high"?"gold":"green"}><Editable value={t.priority} onChange={v=>update(["tasks",i,"priority"],v)} editMode={editMode}/></Pill></span>
           </div>)}
         </div>
+      </section>
+
+      <section className="panel repp-panel" id="repp">
+        <div className="panel-header">
+          <div>
+            <div className="section-kicker">Wilbur Repp CTE Program</div>
+            <h3>Hybrid Executive Dashboard</h3>
+          </div>
+          <a href="/repp-dashboard.html" target="_blank" className="btn ghost" style={{textDecoration:"none",fontSize:12}}>Open full screen ↗</a>
+        </div>
+        <p className="muted-note">Interactive CTE strategy dashboard — expand sections, toggle edit mode, and track progress. Opens full screen in a new tab.</p>
+        <iframe
+          src="/repp-dashboard.html"
+          title="Wilbur Repp CTE Dashboard"
+          style={{width:"100%",height:"85vh",border:"1px solid var(--line)",borderRadius:14,marginTop:8}}
+          allowFullScreen
+        />
       </section>
     </main>
   </div>;
