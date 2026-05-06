@@ -133,6 +133,14 @@ const seed = {
     { title: "Scholarship Event", time: "May 21, 2026 · 5:30 PM", location: "Kent Covenant Church", focus: "Board presence and student celebration" },
     { title: "Kent International Festival", time: "May 30, 2026 · 10 AM–5 PM", location: "Showare", focus: "KSF booth planning and community visibility" },
   ],
+  roadmapTasks: [
+    { title: "Finalize 8-month development timeline with Marquise", status: "Open", owner: "Alan Sutliff", due: "May 15, 2026", priority: "High" },
+    { title: "Present roadmap to full board for alignment", status: "Open", owner: "Marquise Dixon", due: "May 15, 2026", priority: "High" },
+    { title: "Identify KSD CTE department contacts for co-design", status: "Open", owner: "Marquise Dixon", due: "Jun 1, 2026", priority: "High" },
+    { title: "Map Phase 1 milestones and owners", status: "Open", owner: "Board", due: "Jun 15, 2026", priority: "Medium" },
+    { title: "Draft community partner outreach list", status: "Open", owner: "Randy Heath", due: "Jun 30, 2026", priority: "Medium" },
+    { title: "Set up progress check-in cadence for roadmap", status: "Open", owner: "Alan Sutliff", due: "Jun 15, 2026", priority: "Medium" },
+  ],
   reppTasks: [
     { title: "Confirm CTE program design framework with KSD", status: "Open", owner: "Marquise Dixon", due: "Jun 1, 2026", priority: "High" },
     { title: "Identify industry partner leads for CTE cohort", status: "Open", owner: "Board", due: "Jun 15, 2026", priority: "High" },
@@ -246,6 +254,7 @@ export default function App(){
   const [data,setData] = useState(load);
   const [editMode,setEditMode] = useState(false);
   const [reppOpen,setReppOpen] = useState(true);
+  const [roadmapOpen,setRoadmapOpen] = useState(true);
   const [filter,setFilter] = useState("all");
   const [openCards,setOpenCards] = useState({ governance:true });
   const [openSections,setOpenSections] = useState({});
@@ -277,6 +286,7 @@ export default function App(){
 
   const addItem = (wIdx, sIdx) => update(["workstreams", wIdx, "sections", sIdx, "items"], [...data.workstreams[wIdx].sections[sIdx].items, "New item — click edit mode to update."]);
   const removeItem = (wIdx, sIdx, iIdx) => update(["workstreams", wIdx, "sections", sIdx, "items"], data.workstreams[wIdx].sections[sIdx].items.filter((_,i)=>i!==iIdx));
+  const addRoadmapTask = () => update(["roadmapTasks"], [...(data.roadmapTasks||[]), { title:"New roadmap task", status:"Open", owner:"Owner", due:"Date", priority:"Medium" }]);
   const addReppTask = () => update(["reppTasks"], [...(data.reppTasks||[]), { title:"New CTE task", status:"Open", owner:"Owner", due:"Date", priority:"Medium" }]);
   const addTask = () => update(["tasks"], [...data.tasks, { title:"New task", status:"Open", owner:"Owner", due:"Date", priority:"Medium" }]);
   const addDocument = () => update(["documents"], [...(data.documents || []), { name:"New board document", category:"Governance", uploaded:"Date", owner:"Owner", url:"https://drive.google.com/" }]);
@@ -320,6 +330,7 @@ export default function App(){
     <div className="topbar">
       <div className="brand">KSF BoardHub</div>
       <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('repp')?.scrollIntoView({behavior:'smooth'})}>🎓 Repp CTE</button>
+      <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('roadmap')?.scrollIntoView({behavior:'smooth'})}>🗺️ Roadmap</button>
       <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('members')?.scrollIntoView({behavior:'smooth'})}>👥 Members</button>
       <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('documents')?.scrollIntoView({behavior:'smooth'})}>📁 Docs</button>
       <button onClick={()=>setEditMode(!editMode)} className={editMode?"btn gold":"btn"}>{editMode ? "Exit edit mode" : "Edit mode"}</button>
@@ -450,7 +461,7 @@ export default function App(){
             <p><Editable value={m.focus} onChange={v=>update(["meetings",i,"focus"],v)} editMode={editMode} multiline/></p>
           </div>)}
         </div>
-        <div className="panel">
+        <div className="panel" id="members">
           <div className="panel-header"><div><div className="section-kicker">Board Composition</div><h3>Members</h3></div></div>
           <div className="member-grid">
             {data.members.map((m,i)=><MemberCard key={i} m={m} i={i} update={update} editMode={editMode}/>)}
@@ -496,6 +507,51 @@ export default function App(){
           </div>)}
         </div>
       </section>
+      <section className="panel repp-panel" id="roadmap" style={{marginTop:16}}>
+        <div className="panel-header" style={{cursor:"pointer"}} onClick={()=>setRoadmapOpen(o=>!o)}>
+          <div>
+            <div className="section-kicker">Wilbur Repp CTE Program</div>
+            <h3 style={{margin:0}}>Development Roadmap</h3>
+          </div>
+          <div style={{display:"flex",gap:8,alignItems:"center"}}>
+            <a href="/repp-roadmap.html" target="_blank" className="btn ghost"
+              style={{textDecoration:"none",fontSize:12}}
+              onClick={e=>e.stopPropagation()}>
+              Open full screen ↗
+            </a>
+            <span style={{fontSize:18,color:"var(--muted)",fontWeight:700}}>{roadmapOpen?"▲":"▼"}</span>
+          </div>
+        </div>
+        {roadmapOpen && (
+          <>
+            <p className="muted-note" style={{margin:"8px 0"}}>8-month CTE development plan — click sections to expand, track milestones and board focus areas.</p>
+            <iframe
+              src="/repp-roadmap.html"
+              title="Wilbur Repp 8-Month Development Plan"
+              style={{width:"100%",height:"85vh",border:"1px solid var(--line)",borderRadius:14,marginTop:4,display:"block"}}
+            />
+            <div className="panel" style={{marginTop:16,padding:0}}>
+              <div className="panel-header" style={{padding:"16px 20px"}}>
+                <div><div className="section-kicker">Wilbur Repp CTE Program</div><h3>Roadmap Tasks</h3></div>
+                {editMode && <button className="btn" onClick={addRoadmapTask}>+ Add task</button>}
+              </div>
+              <div className="task-table">
+                <div className="task-head"><span>Status</span><span>Action</span><span>Owner</span><span>Due</span><span>Priority</span></div>
+                {(data.roadmapTasks||[]).map((t,i)=>(
+                  <div className={`task-row ${String(t.status).toLowerCase()==="complete"?"done":""}`} key={i}>
+                    <span className="status-cell"><label className="check-wrap"><input type="checkbox" checked={String(t.status||"").toLowerCase()==="complete"} onChange={e=>update(["roadmapTasks",i,"status"],e.target.checked?"Complete":"Open")}/><b>{String(t.status||"Open")}</b></label></span>
+                    <span><Editable value={t.title} onChange={v=>update(["roadmapTasks",i,"title"],v)} editMode={editMode} multiline/></span>
+                    <span><Editable value={t.owner} onChange={v=>update(["roadmapTasks",i,"owner"],v)} editMode={editMode}/></span>
+                    <span><Editable value={t.due} onChange={v=>update(["roadmapTasks",i,"due"],v)} editMode={editMode}/></span>
+                    <span><Pill tone={String(t.priority).toLowerCase()==="high"?"gold":"green"}><Editable value={t.priority} onChange={v=>update(["roadmapTasks",i,"priority"],v)} editMode={editMode}/></Pill></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+      </section>
+
       <section className="panel repp-panel" id="repp" style={{marginTop:16}}>
         <ReppHeader open={reppOpen} setOpen={setReppOpen} />
         {reppOpen && (
