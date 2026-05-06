@@ -197,60 +197,6 @@ function Editable({ value, onChange, editMode, className="", multiline=false }){
 function Pill({ children, tone="green" }){ return <span className={`pill ${tone}`}>{children}</span>; }
 
 
-
-function ReppPanel() {
-  const [open, setOpen] = useState(true);
-  return (
-    <section className="panel repp-panel" id="repp">
-      <div className="panel-header" style={{cursor:"pointer"}} onClick={()=>setOpen(o=>!o)}>
-        <div>
-          <div className="section-kicker">Wilbur Repp CTE Program</div>
-          <h3 style={{margin:0}}>Wilbur Repp CTE Program Dashboard</h3>
-        </div>
-        <div style={{display:"flex",gap:8,alignItems:"center"}}>
-          <a href="/repp-dashboard.html" target="_blank" className="btn ghost"
-            style={{textDecoration:"none",fontSize:12}}
-            onClick={e=>e.stopPropagation()}>
-            Open full screen ↗
-          </a>
-          <span style={{fontSize:18,color:"var(--muted)",fontWeight:700,marginLeft:4}}>
-            {open ? "▲" : "▼"}
-          </span>
-        </div>
-      </div>
-      {open && (
-        <>
-          <p className="muted-note">Interactive CTE strategy dashboard — expand sections, toggle edit mode, and track progress.</p>
-          <iframe
-            src="/repp-dashboard.html"
-            title="Wilbur Repp CTE Dashboard"
-            style={{width:"100%",height:"85vh",border:"1px solid var(--line)",borderRadius:14,marginTop:8,display:"block"}}
-            allowFullScreen
-          />
-          <div className="panel" style={{marginTop:16}}>
-            <div className="panel-header">
-              <div><div className="section-kicker">Wilbur Repp CTE Program</div><h3>CTE Program Tasks</h3></div>
-              {editMode && <button className="btn" onClick={addReppTask}>+ Add task</button>}
-            </div>
-            <div className="task-table">
-              <div className="task-head"><span>Status</span><span>Action</span><span>Owner</span><span>Due</span><span>Priority</span></div>
-              {(data.reppTasks||[]).map((t,i)=>(
-                <div className={`task-row ${String(t.status).toLowerCase()==="complete"?"done":""}`} key={i}>
-                  <span className="status-cell"><label className="check-wrap"><input type="checkbox" checked={String(t.status||"").toLowerCase()==="complete"} onChange={e=>update(["reppTasks",i,"status"],e.target.checked?"Complete":"Open")}/><b>{String(t.status||"Open")}</b></label></span>
-                  <span><Editable value={t.title} onChange={v=>update(["reppTasks",i,"title"],v)} editMode={editMode} multiline/></span>
-                  <span><Editable value={t.owner} onChange={v=>update(["reppTasks",i,"owner"],v)} editMode={editMode}/></span>
-                  <span><Editable value={t.due} onChange={v=>update(["reppTasks",i,"due"],v)} editMode={editMode}/></span>
-                  <span><Pill tone={String(t.priority).toLowerCase()==="high"?"gold":"green"}><Editable value={t.priority} onChange={v=>update(["reppTasks",i,"priority"],v)} editMode={editMode}/></Pill></span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
-    </section>
-  );
-}
-
 function MemberCard({ m, i, update, editMode }) {
   const [open, setOpen] = useState(false);
   return (
@@ -272,6 +218,25 @@ function MemberCard({ m, i, update, editMode }) {
             {m.bio && <p className="member-bio">{m.bio}</p>}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+function ReppHeader({ open, setOpen }) {
+  return (
+    <div className="panel-header" style={{cursor:"pointer"}} onClick={()=>setOpen(o=>!o)}>
+      <div>
+        <div className="section-kicker">Wilbur Repp CTE Program</div>
+        <h3 style={{margin:0}}>Wilbur Repp CTE Program Dashboard</h3>
+      </div>
+      <div style={{display:"flex",gap:8,alignItems:"center"}}>
+        <a href="/repp-dashboard.html" target="_blank" className="btn ghost"
+          style={{textDecoration:"none",fontSize:12}}
+          onClick={e=>e.stopPropagation()}>
+          Open full screen ↗
+        </a>
+        <span style={{fontSize:18,color:"var(--muted)",fontWeight:700}}>{open?"▲":"▼"}</span>
       </div>
     </div>
   );
@@ -530,8 +495,37 @@ export default function App(){
           </div>)}
         </div>
       </section>
-
-      <ReppPanel />
+      <section className="panel repp-panel" id="repp" style={{marginTop:16}}>
+        <ReppHeader open={reppOpen} setOpen={setReppOpen} />
+        {reppOpen && (
+          <>
+            <p className="muted-note" style={{margin:"8px 0"}}>Interactive CTE strategy dashboard — expand sections, toggle edit mode, and track progress.</p>
+            <iframe
+              src="/repp-dashboard.html"
+              title="Wilbur Repp CTE Dashboard"
+              style={{width:"100%",height:"85vh",border:"1px solid var(--line)",borderRadius:14,marginTop:4,display:"block"}}
+            />
+            <div className="panel" style={{marginTop:16,padding:0}}>
+              <div className="panel-header" style={{padding:"16px 20px"}}>
+                <div><div className="section-kicker">Wilbur Repp CTE Program</div><h3>CTE Program Tasks</h3></div>
+                {editMode && <button className="btn" onClick={addReppTask}>+ Add task</button>}
+              </div>
+              <div className="task-table">
+                <div className="task-head"><span>Status</span><span>Action</span><span>Owner</span><span>Due</span><span>Priority</span></div>
+                {(data.reppTasks||[]).map((t,i)=>(
+                  <div className={`task-row ${String(t.status).toLowerCase()==="complete"?"done":""}`} key={i}>
+                    <span className="status-cell"><label className="check-wrap"><input type="checkbox" checked={String(t.status||"").toLowerCase()==="complete"} onChange={e=>update(["reppTasks",i,"status"],e.target.checked?"Complete":"Open")}/><b>{String(t.status||"Open")}</b></label></span>
+                    <span><Editable value={t.title} onChange={v=>update(["reppTasks",i,"title"],v)} editMode={editMode} multiline/></span>
+                    <span><Editable value={t.owner} onChange={v=>update(["reppTasks",i,"owner"],v)} editMode={editMode}/></span>
+                    <span><Editable value={t.due} onChange={v=>update(["reppTasks",i,"due"],v)} editMode={editMode}/></span>
+                    <span><Pill tone={String(t.priority).toLowerCase()==="high"?"gold":"green"}><Editable value={t.priority} onChange={v=>update(["reppTasks",i,"priority"],v)} editMode={editMode}/></Pill></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+      </section>
     </main>
   </div>;
 }
