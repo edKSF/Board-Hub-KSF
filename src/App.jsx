@@ -189,6 +189,42 @@ function Editable({ value, onChange, editMode, className="", multiline=false }){
 function Pill({ children, tone="green" }){ return <span className={`pill ${tone}`}>{children}</span>; }
 
 
+
+function ReppPanel() {
+  const [open, setOpen] = useState(true);
+  return (
+    <section className="panel repp-panel" id="repp">
+      <div className="panel-header" style={{cursor:"pointer"}} onClick={()=>setOpen(o=>!o)}>
+        <div>
+          <div className="section-kicker">Wilbur Repp CTE Program</div>
+          <h3 style={{margin:0}}>Hybrid Executive Dashboard</h3>
+        </div>
+        <div style={{display:"flex",gap:8,alignItems:"center"}}>
+          <a href="/repp-dashboard.html" target="_blank" className="btn ghost"
+            style={{textDecoration:"none",fontSize:12}}
+            onClick={e=>e.stopPropagation()}>
+            Open full screen ↗
+          </a>
+          <span style={{fontSize:18,color:"var(--muted)",fontWeight:700,marginLeft:4}}>
+            {open ? "▲" : "▼"}
+          </span>
+        </div>
+      </div>
+      {open && (
+        <>
+          <p className="muted-note">Interactive CTE strategy dashboard — expand sections, toggle edit mode, and track progress.</p>
+          <iframe
+            src="/repp-dashboard.html"
+            title="Wilbur Repp CTE Dashboard"
+            style={{width:"100%",height:"85vh",border:"1px solid var(--line)",borderRadius:14,marginTop:8,display:"block"}}
+            allowFullScreen
+          />
+        </>
+      )}
+    </section>
+  );
+}
+
 function MemberCard({ m, i, update, editMode }) {
   const [open, setOpen] = useState(false);
   return (
@@ -290,9 +326,9 @@ export default function App(){
   return <div>
     <div className="topbar">
       <div className="brand">KSF BoardHub</div>
-      <a href="#repp" className="btn ghost" style={{textDecoration:"none",fontSize:12}}>🎓 Repp CTE</a>
-      <a href="#members" className="btn ghost" style={{textDecoration:"none",fontSize:12}}>👥 Members</a>
-      <a href="#documents" className="btn ghost" style={{textDecoration:"none",fontSize:12}}>📁 Docs</a>
+      <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('repp')?.scrollIntoView({behavior:'smooth'})}>🎓 Repp CTE</button>
+      <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('members')?.scrollIntoView({behavior:'smooth'})}>👥 Members</button>
+      <button className="btn ghost" style={{fontSize:12}} onClick={()=>document.getElementById('documents')?.scrollIntoView({behavior:'smooth'})}>📁 Docs</button>
       <button onClick={()=>setEditMode(!editMode)} className={editMode?"btn gold":"btn"}>{editMode ? "Exit edit mode" : "Edit mode"}</button>
       <button className="btn ghost" onClick={exportEdits}>Export edits</button>
       <button className="btn ghost signout" onClick={()=>{localStorage.removeItem("ksf_auth");window.location.reload();}}>Sign Out</button>
@@ -468,22 +504,7 @@ export default function App(){
         </div>
       </section>
 
-      <section className="panel repp-panel" id="repp">
-        <div className="panel-header">
-          <div>
-            <div className="section-kicker">Wilbur Repp CTE Program</div>
-            <h3>Hybrid Executive Dashboard</h3>
-          </div>
-          <a href="/repp-dashboard.html" target="_blank" className="btn ghost" style={{textDecoration:"none",fontSize:12}}>Open full screen ↗</a>
-        </div>
-        <p className="muted-note">Interactive CTE strategy dashboard — expand sections, toggle edit mode, and track progress. Opens full screen in a new tab.</p>
-        <iframe
-          src="/repp-dashboard.html"
-          title="Wilbur Repp CTE Dashboard"
-          style={{width:"100%",height:"85vh",border:"1px solid var(--line)",borderRadius:14,marginTop:8}}
-          allowFullScreen
-        />
-      </section>
+      <ReppPanel />
     </main>
   </div>;
 }
