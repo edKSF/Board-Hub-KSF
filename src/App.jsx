@@ -146,13 +146,20 @@ const seed = {
     { title: "Attend May 21 Scholarship Event", status: "Open", owner: "Randy, Marilyn, Allyson, Connie", due: "May 21, 2026", priority: "Medium" },
   ],
   members: [
-    { name: "Alan Sutliff", role: "President", initials: "AS" },
-    { name: "Allyson Johnson", role: "Past President", initials: "AJ" },
-    { name: "Randy Heath", role: "VP Board Development", initials: "RH" },
-    { name: "Connie Compton", role: "Secretary", initials: "CC" },
-    { name: "Marilyn Boxly", role: "VP Classroom Grants", initials: "MB" },
-    { name: "Sharn Shoker", role: "VP Communications", initials: "SS" },
-    { name: "Marquise Dixon", role: "Executive Director", initials: "MD" },
+    { name: "Alan Sutliff", role: "President", initials: "AS", email: "asutliff@me.com",
+      bio: "Alan and his partner have lived in the Kent School District for over twenty years. He currently works for the Washington Education Association representing educators in Renton. A founding member of KSF, Alan believes strongly in equitable funding for public education." },
+    { name: "Allyson Johnson", role: "Past President", initials: "AJ", email: "ptamom@q.com",
+      bio: "Allyson has been a tireless advocate for kids and public education for over 13 years with KSF. She raised 3 children in the Kent School District and worked for KSD as a Health Tech and Administrative Assistant for 15 years." },
+    { name: "Randy Heath", role: "VP Board Development", initials: "RH", email: "randyheath@seattleymca.org",
+      bio: "Randy worked in public schools in Washington for 33 years, retiring from KSD in June 2024 as Executive Director/Associate Superintendent. He now serves as Executive Director of the Washington State Alliance of YMCAs." },
+    { name: "Connie Compton", role: "Secretary", initials: "CC", email: "richcompton2@comcast.net",
+      bio: "Connie taught special education in Kent from 1983 through retirement in 2023. She served as Kent Education Association president in 2011, a term that directly led to the founding of KSF. She is passionate about strong public schools and equitable opportunities for all students." },
+    { name: "Marilyn Boxly", role: "VP Classroom Grants", initials: "MB", email: "mobotea@comcast.net",
+      bio: "Marilyn taught at Jenkins Creek Elementary School for 32 years after joining KSD in 1990. She is an active member of the Kent Educators of Color Network and deeply committed to ensuring opportunities are accessible to every child regardless of zip code or background." },
+    { name: "Sharn Shoker", role: "VP Communications", initials: "SS", email: "sharnkaur15@gmail.com",
+      bio: "Sharn is a lifelong Kent resident and proud KSD graduate. She attended Emerald Park Elementary, Meeker Middle School, and Kent Ridge High School. She is now raising a future KSD student and is honored to give back to the system that shaped her." },
+    { name: "Marquise Dixon", role: "Executive Director", initials: "MD", email: "marquise@kentschoolsfoundation.org",
+      bio: "Marquise brings visionary nonprofit leadership to KSF, most recently serving as CEO of a Tacoma nonprofit serving 1,500+ students and families annually. He expanded employer partnerships, grew programming, and strengthened organizational sustainability." },
   ],
   documents: [
     { name: "KSF Board Minutes – April 17, 2026", category: "Minutes", uploaded: "Apr 17, 2026", owner: "Alan Sutliff", url: "https://drive.google.com/file/d/1NpsHr2mZMTU-bAceVqwVaBi1Yz20BQCN/view" },
@@ -388,7 +395,12 @@ export default function App(){
           <div className="member-grid">
             {data.members.map((m,i)=><div className="member" key={i}>
               <div className="avatar"><Editable value={m.initials} onChange={v=>update(["members",i,"initials"],v)} editMode={editMode}/></div>
-              <div><strong><Editable value={m.name} onChange={v=>update(["members",i,"name"],v)} editMode={editMode}/></strong><span><Editable value={m.role} onChange={v=>update(["members",i,"role"],v)} editMode={editMode}/></span></div>
+              <div className="member-info">
+                <strong><Editable value={m.name} onChange={v=>update(["members",i,"name"],v)} editMode={editMode}/></strong>
+                <span><Editable value={m.role} onChange={v=>update(["members",i,"role"],v)} editMode={editMode}/></span>
+                {m.email && <a href={`mailto:${m.email}`} className="member-email">{m.email}</a>}
+                {m.bio && <p className="member-bio">{m.bio}</p>}
+              </div>
             </div>)}
           </div>
         </div>
