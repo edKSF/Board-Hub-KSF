@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wilbur Repp CTE Scholarship Program · Hybrid Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#143a5c;--navy2:#0d2a45;--teal:#2a7f8c;--gold:#c98a2b;--cream:#fbf8f0;--paper:#fffdf8;--ink:#263447;--muted:#667085;--line:#e4ddd1;--soft-blue:#eaf2f4;--soft-gold:#fbf1da;--soft-green:#e9f4ef;--red:#b42318;--shadow:0 14px 40px rgba(20,58,92,.13);}
+*{box-sizing:border-box} html,body{margin:0;padding:0} body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(180deg,#f3f6f7 0%,#fbf8f0 100%);color:var(--ink);line-height:1.55}.app{min-height:100vh}.toolbar{position:sticky;top:0;z-index:50;display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:rgba(13,42,69,.96);backdrop-filter:blur(10px);color:white;padding:10px 22px;box-shadow:0 3px 18px rgba(0,0,0,.2)}.toolbar-title{font-weight:800;margin-right:auto;letter-spacing:.01em}.toolbar-help{font-size:12px;opacity:.75}.btn{border:0;border-radius:999px;padding:8px 13px;font-weight:700;font-size:12px;cursor:pointer;background:white;color:var(--navy);transition:.18s}.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.18)}.btn.gold{background:var(--gold);color:white}.btn.ghost{background:rgba(255,255,255,.12);color:white;border:1px solid rgba(255,255,255,.22)}.btn.danger{background:#fff1f0;color:var(--red)}.saved{font-size:12px;color:#b7f7c9;opacity:0;transition:opacity .25s}.saved.show{opacity:1}.edit-only{display:none}body.editing .edit-only{display:inline-flex}.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 85% 10%,rgba(201,138,43,.35) 0,rgba(201,138,43,.08) 28%,transparent 42%),linear-gradient(135deg,var(--navy2),var(--navy));color:white;padding:58px 28px 46px}.hero-inner{max-width:1120px;margin:0 auto;position:relative;z-index:1}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#b9dce1;font-weight:800;margin-bottom:14px}.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:34px;align-items:end}.hero h1{font-family:"DM Serif Display",serif;font-size:clamp(34px,5vw,64px);line-height:1.02;margin:0 0 14px}.hero h1 em{font-style:normal;color:#e8c77b}.hero-sub{max-width:680px;color:rgba(255,255,255,.76);font-size:17px;margin:0}.hero-card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.18)}.hero-card .label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#b9dce1;font-weight:800}.hero-card .big{font-family:"DM Serif Display",serif;font-size:42px;margin-top:6px}.hero-card p{font-size:13px;color:rgba(255,255,255,.7);margin:5px 0 0}.metric-row{max-width:1120px;margin:-26px auto 0;padding:0 28px;position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.metric{background:white;border:1px solid var(--line);border-radius:18px;padding:18px 18px;box-shadow:var(--shadow)}.metric .num{font-family:"DM Serif Display",serif;font-size:31px;color:var(--navy);line-height:1}.metric .txt{font-size:12px;color:var(--muted);margin-top:6px;font-weight:700}.main{max-width:1120px;margin:0 auto;padding:30px 28px 90px}.strategy{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:12px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 10px 30px rgba(20,58,92,.06)}.panel h2,.section-title{font-family:"DM Serif Display",serif;color:var(--navy);font-size:28px;line-height:1.1;margin:0 0 12px}.panel p{color:var(--muted);margin:0 0 14px}.pill-row{display:flex;gap:8px;flex-wrap:wrap}.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--soft-blue);color:var(--navy);font-size:12px;font-weight:800}.pill.gold{background:var(--soft-gold);color:#87520d}.pill.green{background:var(--soft-green);color:#236a4a}.phase-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.phase{border-radius:17px;padding:15px;border:1px solid var(--line);background:#fff}.phase .k{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:800}.phase .t{font-weight:850;color:var(--navy);margin-top:4px}.phase .d{font-size:12px;color:var(--muted);margin-top:5px}.drivers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.driver{border-radius:16px;padding:14px;background:white;border:1px solid var(--line)}.driver strong{color:var(--navy);display:block}.driver span{font-size:12px;color:var(--muted)}.progress-wrap{margin:24px 0;background:white;border:1px solid var(--line);border-radius:20px;padding:18px 20px;box-shadow:0 8px 25px rgba(20,58,92,.06)}.progress-top{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:10px}.progress-top strong{color:var(--navy)}.progress-top span{font-weight:800;color:var(--teal)}.track{height:10px;background:#e9edf0;border-radius:999px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));width:0%;transition:.5s}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 16px}.filter{border:1px solid var(--line);background:white;color:var(--muted);border-radius:999px;padding:8px 13px;cursor:pointer;font-size:13px;font-weight:800}.filter.active,.filter:hover{background:var(--navy);border-color:var(--navy);color:white}.roadmap{display:flex;flex-direction:column;gap:12px}.phase-divider{display:flex;align-items:center;gap:10px;margin:22px 0 4px}.phase-divider .line{height:1px;background:var(--line);flex:1}.phase-divider .cap{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);font-weight:900;border:1px solid var(--line);border-radius:999px;background:white;padding:5px 11px}.card{background:white;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 24px rgba(20,58,92,.06)}.card.open{border-color:rgba(42,127,140,.55);box-shadow:0 14px 34px rgba(42,127,140,.12)}.card-head{display:flex;align-items:center;gap:14px;padding:18px 20px;cursor:pointer}.accent{width:5px;height:50px;border-radius:999px;background:var(--teal);flex:none}.card-meta{flex:1;min-width:0}.month-title{font-family:"DM Serif Display",serif;font-size:23px;color:var(--navy);line-height:1.1}.tagline{font-size:13px;color:var(--muted);margin-top:5px}.badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.badge{font-size:11px;font-weight:850;border-radius:999px;padding:5px 9px;background:var(--soft-blue);color:var(--navy)}.chev{color:var(--muted);font-weight:900;transition:.2s}.card.open .chev{transform:rotate(180deg)}.card-body{display:none;border-top:1px solid var(--line);padding:0 20px 20px;background:linear-gradient(180deg,#fff,#fffdf8)}.card.open .card-body{display:block}.detail-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:18px}.block{border:1px solid var(--line);border-radius:16px;background:white;padding:15px}.block h3{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--gold);margin:0;font-weight:900}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;padding:2px 0 10px}.section-head .section-chev{font-size:14px;color:var(--muted);font-weight:900;transition:.2s}.section-card.section-open .section-chev{transform:rotate(180deg)}.section-content{display:none}.section-card.section-open .section-content{display:block}.task-list{display:flex;flex-direction:column;gap:8px}.task{display:flex;gap:9px;align-items:flex-start;color:#475467;font-size:14px}.task .icon{font-size:17px;line-height:1.3}.focus{background:var(--soft-gold);border-color:#efd59d}.focus p{margin:0;color:#5f3b0b;font-size:14px}.mini{font-size:12px;color:var(--muted);margin-top:4px}.footerline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}.goal{background:var(--soft-green);color:#236a4a;border-radius:999px;padding:7px 12px;font-weight:900;font-size:12px}.owner{color:var(--muted);font-size:12px}.editable{border-radius:6px;padding:1px 3px;margin:-1px -3px}body.editing .editable{cursor:text}body.editing .editable:hover,body.editing .editable:focus{background:#fafdff;outline:2px dashed var(--teal);outline-offset:3px}.remove-btn,.add-btn{display:none}body.editing .remove-btn{display:inline-flex;border:0;background:#fff1f0;color:var(--red);border-radius:999px;padding:4px 8px;font-weight:900;cursor:pointer;margin-left:auto}body.editing .add-btn{display:inline-flex;border:1px dashed var(--teal);background:#fafdff;color:var(--teal);border-radius:999px;padding:7px 10px;font-weight:900;cursor:pointer;margin-top:10px}.print-note{font-size:12px;color:var(--muted);text-align:center;margin-top:30px}@media(max-width:850px){.hero-grid,.strategy,.detail-grid{grid-template-columns:1fr}.metric-row,.phase-strip{grid-template-columns:repeat(2,1fr)}.drivers{grid-template-columns:1fr}.badges{display:none}.toolbar-title{width:100%;margin-right:0}}@media(max-width:560px){.metric-row{grid-template-columns:1fr}.phase-strip{grid-template-columns:1fr}.hero{padding:42px 18px}.main,.metric-row{padding-left:18px;padding-right:18px}.card-head{align-items:flex-start}.chev{margin-top:8px}}@media print{.toolbar,.filters,.add-btn,.remove-btn{display:none!important}body{background:white}.hero{padding:32px;color:white}.metric-row{margin:12px 0;max-width:none}.main{max-width:none;padding:12px}.panel,.card,.metric,.progress-wrap{box-shadow:none}.card-body{display:block}.card{page-break-inside:avoid}.editable:hover,.editable:focus{outline:none;background:transparent}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="toolbar" contenteditable="false">
+    <span class="toolbar-title">Wilbur Repp CTE · Hybrid Editable Dashboard</span>
+    <span class="toolbar-help">Presentation mode by default · turn edit mode on to revise</span>
+    <button class="btn gold" id="editToggle" onclick="toggleEdit()">Edit mode: Off</button>
+    <button class="btn ghost" onclick="expandAll()">Expand all</button>
+    <button class="btn ghost" onclick="collapseAll()">Collapse all</button>
+    <button class="btn" onclick="downloadHtml()">Download HTML</button>
+    <button class="btn" onclick="window.print()">Print / PDF</button>
+    <button class="btn danger edit-only" onclick="resetEdits()">Reset</button>
+    <span class="saved" id="saved">✓ Saved</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow editable" data-path="eyebrow">Kent Schools Foundation · Wilbur Repp CTE Strategy</div>
+      <div class="hero-grid">
+        <div>
+          <h1><span class="editable" data-path="heroTitle">Building a CTE pipeline from Kent high school to career and community leadership.</span></h1>
+          <p class="hero-sub editable" data-path="heroSub">An 8-month development plan that honors the September 15, 2020 estate gift intent while translating the vision into a practical scholarship, cohort, mentor, and workforce pathway model.</p>
+        </div>
+        <div class="hero-card">
+          <div class="label editable" data-path="heroCardLabel">Core design question</div>
+          <div class="big editable" data-path="heroCardBig">How do we launch well?</div>
+          <p class="editable" data-path="heroCardText">Use donor intent as the anchor, co-design with KSD and industry partners, pilot responsibly, and build a sustainable scholar experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="metric-row" id="metrics"></section>
+
+  <main class="main">
+    <section class="strategy">
+      <div class="panel">
+        <h2 class="editable" data-path="strategyTitle">Executive snapshot</h2>
+        <p class="editable" data-path="strategyText">This hybrid plan moves Wilbur Repp CTE from concept to launch readiness: clarify eligibility, design the scholar pathway, align governance and fund use, recruit partners, and prepare a first cohort model that can grow over time.</p>
+        <div class="pill-row">
+          <span class="pill">Donor intent aligned</span>
+          <span class="pill gold">CTE focused</span>
+          <span class="pill green">Pilot-ready</span>
+        </div>
+        <div class="phase-strip" id="phaseStrip"></div>
+      </div>
+      <div class="panel">
+        <h2>Strategic drivers</h2>
+        <div class="drivers" id="drivers"></div>
+      </div>
+    </section>
+
+    <section class="progress-wrap">
+      <div class="progress-top"><strong>Development progress</strong><span id="progressText">0%</span></div>
+      <div class="track"><div class="fill" id="progressFill"></div></div>
+    </section>
+
+    <h2 class="section-title">Expandable development roadmap</h2>
+    <div class="filters" id="filters"></div>
+    <section class="roadmap" id="roadmap"></section>
+    <p class="print-note">Tip: use presentation mode for board review, edit mode for working sessions, and Download HTML to preserve a shareable version.</p>
+  </main>
+</div>
+
+<script>
+const STORE='wilbur_repp_cte_hybrid_v1';
+const DEFAULT={
+  eyebrow:'Kent Schools Foundation · Wilbur Repp CTE Strategy',
+  heroTitle:'Building a CTE pipeline from Kent high school to career and community leadership.',
+  heroSub:'An 8-month development plan that honors the September 15, 2020 estate gift intent while translating the vision into a practical scholarship, cohort, mentor, and workforce pathway model.',
+  heroCardLabel:'Core design question', heroCardBig:'How do we launch well?', heroCardText:'Use donor intent as the anchor, co-design with KSD and industry partners, pilot responsibly, and build a sustainable scholar experience.',
+  strategyTitle:'Executive snapshot',
+  strategyText:'This hybrid plan moves Wilbur Repp CTE from concept to launch readiness: clarify eligibility, design the scholar pathway, align governance and fund use, recruit partners, and prepare a first cohort model that can grow over time.',
+  metrics:[
+    {num:'8 months',txt:'Development runway'},
+    {num:'7 stages',txt:'Scholar pathway framework'},
+    {num:'75% / 25%',txt:'Endowment + restricted fund model'},
+    {num:'2027',txt:'Launch readiness target'}
+  ],
+  phases:[
+    {id:'intent',k:'Phase 1',t:'Intent & guardrails',d:'Confirm donor intent, eligibility, fund use, and decision rights.'},
+    {id:'design',k:'Phase 2',t:'Program design',d:'Build the scholar pathway, cohort model, and support structure.'},
+    {id:'partners',k:'Phase 3',t:'Partner alignment',d:'Engage KSD, colleges, apprenticeships, employers, and mentors.'},
+    {id:'launch',k:'Phase 4',t:'Pilot launch prep',d:'Finalize applications, selection, onboarding, and first-year operations.'}
+  ],
+  drivers:[
+    {title:'Eligibility anchors',text:'Interest in vocational training or apprenticeship, graduation pathway, academic need, educator recommendation, and KSF selection.'},
+    {title:'Scholar experience',text:'Renewable scholarship, cohort support, coaching, leadership development, and progress monitoring.'},
+    {title:'Industry connection',text:'Mentors, paid experience, employer partners, apprenticeships, technical colleges, and pathway-aligned work.'},
+    {title:'Sustainability',text:'Clear fund allocation, manageable pilot size, alumni pay-it-forward loop, and dashboard reporting.'}
+  ],
+  months:[
+    {id:'m1',phase:'intent',phaseLabel:'Phase 1 — Intent & Guardrails',title:'Month 1 · Confirm the north star',tagline:'Donor intent, fund structure, and board-level design principles',goal:'Primary output: approved design guardrails',owner:'Board chair, ED, Scholarship Committee',badges:['Governance','Donor intent'],progress:12,accent:'#143a5c',focus:'Board focus: Align on what the Repp gift must do, what it may do, and what should wait until the pilot has evidence.',tasks:[['🧭','Translate the estate gift letter into clear program design principles and non-negotiables.'],['⚖️','Confirm scholarship vs. restricted in-school programming uses, including the 75% endowment / 25% restricted fund concept.'],['✅','Approve decision rights for eligibility, scholarship awards, renewals, and exceptions.']]},
+    {id:'m2',phase:'intent',title:'Month 2 · Define eligibility and scholar profile',tagline:'Who the program is for and how students enter the pathway',goal:'Primary output: eligibility rubric and student profile',owner:'ED, KSD CTE staff, counselors',badges:['Eligibility','Equity'],progress:24,accent:'#2a7f8c',focus:'Board focus: Ensure the scholar profile honors the gift intent without unintentionally excluding the students the donor hoped to support.',tasks:[['🎓','Define eligibility anchors: interest in vocational training or apprenticeships, graduation pathway, academic struggle, educator recommendation, and committee selection.'],['📝','Draft a student-friendly application and educator recommendation form.'],['🔎','Create a rubric that balances readiness, need, motivation, and pathway fit.']]},
+    {id:'m3',phase:'design',phaseLabel:'Phase 2 — Program Design',title:'Month 3 · Build the seven-stage pipeline',tagline:'From Kent HS graduation to career launch and community return',goal:'Primary output: pathway map and support model',owner:'ED, program design workgroup',badges:['Pipeline','Student support'],progress:36,accent:'#c98a2b',focus:'Board focus: Treat the seven-stage pipeline as the operating model, not just a graphic. Each stage needs an owner, action, and success signal.',tasks:[['🛤️','Map the seven stages: Kent HS graduate entry, scholarship award and cohort, post-secondary pathway, mentor guidance, paid experience, early career launch, and alumni pay-it-forward.'],['📊','Define success signals for each stage, including enrollment confirmation, mentor match, paid hours, completion, placement, and alumni engagement.'],['🤝','Identify where KSF leads, where KSD leads, and where external partners must carry the work.']]},
+    {id:'m4',phase:'design',title:'Month 4 · Design the cohort experience',tagline:'Scholarship plus coaching, leadership development, and persistence support',goal:'Primary output: scholar agreement and year-one support calendar',owner:'ED, cohort coach, Scholarship Committee',badges:['Cohort','Coaching'],progress:48,accent:'#87520d',focus:'Board focus: Decide how much support KSF can realistically provide in year one without overbuilding the program.',tasks:[['👥','Design the annual cohort rhythm: onboarding, check-ins, leadership sessions, financial navigation, and celebration.'],['📄','Draft Scholar Agreements covering participation, renewal, communication, academic progress, and pathway updates.'],['🧑‍🏫','Define coaching capacity, escalation protocols, and referral supports for scholars who hit barriers.']]},
+    {id:'m5',phase:'partners',phaseLabel:'Phase 3 — Partner Alignment',title:'Month 5 · Recruit education and apprenticeship partners',tagline:'Technical colleges, certifications, and registered apprenticeship pathways',goal:'Primary output: eligible pathway list and partner commitments',owner:'ED, KSD CTE Director, partner leads',badges:['Partners','Pathways'],progress:60,accent:'#2a7f8c',focus:'Board focus: Help open doors to technical colleges, apprenticeship councils, and respected industry training partners.',tasks:[['🏫','Identify eligible post-secondary pathways such as Green River College, Renton Technical College, Bates, and registered Washington apprenticeships.'],['📌','Create pathway criteria: credential value, labor-market relevance, student supports, cost, and completion expectations.'],['📣','Secure partner input on admissions steps, costs, student supports, and employer connections.']]},
+    {id:'m6',phase:'partners',title:'Month 6 · Build the mentor and employer network',tagline:'Industry mentors, paid experience, and career-connected learning',goal:'Primary output: mentor/employer recruitment plan',owner:'ED, board, employer champions',badges:['Mentors','Employers'],progress:72,accent:'#236a4a',focus:'Board focus: Each board member should identify two to three employer or trade contacts who could become mentors, hosts, sponsors, or advisors.',tasks:[['🧰','Define mentor role, expectations, onboarding, boundaries, and minimum monthly check-ins.'],['💼','Develop employer partner menu: mentor, classroom speaker, paid internship host, apprenticeship connection, sponsor, or advisory member.'],['🕒','Set a paid-experience success signal, such as 200 paid hours or an apprenticeship milestone.']]},
+    {id:'m7',phase:'launch',phaseLabel:'Phase 4 — Pilot Launch Prep',title:'Month 7 · Prepare the pilot infrastructure',tagline:'Application, selection, communications, dashboard, and launch calendar',goal:'Primary output: pilot launch packet',owner:'ED, Scholarship Committee, communications support',badges:['Pilot','Infrastructure'],progress:86,accent:'#143a5c',focus:'Board focus: Confirm the pilot is small enough to execute well and strong enough to demonstrate proof of concept.',tasks:[['🚀','Finalize application timeline, outreach language, selection process, award communication, and onboarding materials.'],['📈','Build a simple dashboard for applications, awards, retention, mentor matches, paid experience, and employment outcomes.'],['🧾','Prepare family-facing FAQs about scholarship use, renewal, expectations, and eligible programs.']]},
+    {id:'m8',phase:'launch',title:'Month 8 · Launch readiness and board approval',tagline:'Final decision package and first-cohort launch plan',goal:'Primary output: board-ready launch recommendation',owner:'ED, board, Scholarship Committee',badges:['Approval','Launch'],progress:100,accent:'#c98a2b',focus:'Board focus: Approve the launch model, first-year budget, pilot size, evaluation plan, and go/no-go conditions.',tasks:[['📦','Present final launch packet: eligibility, application, rubric, scholar support model, partner commitments, dashboard, and budget.'],['🎯','Confirm first cohort size, scholarship amount/range, renewal criteria, and timeline.'],['🔁','Create a year-one learning agenda so the pilot can improve before scaling.']]}
+  ]
+};
+let data, active='all';
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function load(){try{data=JSON.parse(localStorage.getItem(STORE))||clone(DEFAULT)}catch(e){data=clone(DEFAULT)}}
+function save(){localStorage.setItem(STORE,JSON.stringify(data)); const s=document.getElementById('saved'); s.classList.add('show'); clearTimeout(s._t); s._t=setTimeout(()=>s.classList.remove('show'),1300)}
+function getPath(path){return path.split('.').reduce((o,k)=>o&&o[k],data)}
+function setPath(path,val){let parts=path.split('.'), o=data; for(let i=0;i<parts.length-1;i++) o=o[parts[i]]; o[parts.at(-1)]=val; save()}
+function bindEditables(){document.querySelectorAll('.editable').forEach(el=>{el.contentEditable=document.body.classList.contains('editing'); el.spellcheck=false; el.onblur=()=>{const p=el.dataset.path;if(p)setPath(p,el.innerText.trim())}; el.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();el.blur()}}})}
+function renderStatic(){['eyebrow','heroTitle','heroSub','heroCardLabel','heroCardBig','heroCardText','strategyTitle','strategyText'].forEach(p=>{const el=document.querySelector(`[data-path="${p}"]`); if(el) el.innerText=getPath(p)});
+ document.getElementById('metrics').innerHTML=data.metrics.map((m,i)=>`<div class="metric"><div class="num editable" data-path="metrics.${i}.num">${m.num}</div><div class="txt editable" data-path="metrics.${i}.txt">${m.txt}</div></div>`).join('');
+ document.getElementById('phaseStrip').innerHTML=data.phases.map((p,i)=>`<div class="phase"><div class="k editable" data-path="phases.${i}.k">${p.k}</div><div class="t editable" data-path="phases.${i}.t">${p.t}</div><div class="d editable" data-path="phases.${i}.d">${p.d}</div></div>`).join('');
+ document.getElementById('drivers').innerHTML=data.drivers.map((d,i)=>`<div class="driver"><strong class="editable" data-path="drivers.${i}.title">${d.title}</strong><span class="editable" data-path="drivers.${i}.text">${d.text}</span></div>`).join('');
+}
+function renderFilters(){const fs=[['all','All'],...data.phases.map(p=>[p.id,p.t])]; document.getElementById('filters').innerHTML=fs.map(([id,t])=>`<button class="filter ${active===id?'active':''}" onclick="setFilter('${id}')">${t}</button>`).join('')}
+function renderRoadmap(){
+  const vis=data.months.filter(m=>active==='all'||m.phase===active);
+  let html='', last='';
+  vis.forEach((m,mi)=>{
+    if(active==='all'&&m.phaseLabel&&m.phaseLabel!==last){
+      last=m.phaseLabel;
+      html+=`<div class="phase-divider"><div class="line"></div><div class="cap">${m.phaseLabel}</div><div class="line"></div></div>`;
+    }
+    const idx=data.months.findIndex(x=>x.id===m.id);
+    const actionsId=`sec-${m.id}-actions`;
+    const focusId=`sec-${m.id}-focus`;
+    html+=`<article class="card" id="card-${m.id}">
+      <div class="card-head" onclick="toggleCard('${m.id}')">
+        <div class="accent" style="background:${m.accent}"></div>
+        <div class="card-meta">
+          <div class="month-title editable" data-path="months.${idx}.title">${m.title}</div>
+          <div class="tagline editable" data-path="months.${idx}.tagline">${m.tagline}</div>
+        </div>
+        <div class="badges">${m.badges.map(b=>`<span class="badge">${b}</span>`).join('')}</div>
+        <div class="chev">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-grid">
+          <div class="block section-card section-open" id="${actionsId}">
+            <div class="section-head" onclick="toggleSection('${actionsId}', event)">
+              <h3>Priority actions</h3>
+              <span class="section-chev">⌄</span>
+            </div>
+            <div class="section-content">
+              <div class="task-list">
+                ${m.tasks.map((t,ti)=>`<div class="task"><span class="icon editable" data-path="months.${idx}.tasks.${ti}.0">${t[0]}</span><span class="editable" data-path="months.${idx}.tasks.${ti}.1">${t[1]}</span><button class="remove-btn" onclick="event.stopPropagation();removeTask(${idx},${ti})">Remove</button></div>`).join('')}
+              </div>
+              <button class="add-btn" onclick="addTask(${idx})">+ Add action</button>
+            </div>
+          </div>
+          <div class="block focus section-card section-open" id="${focusId}">
+            <div class="section-head" onclick="toggleSection('${focusId}', event)">
+              <h3>Board focus</h3>
+              <span class="section-chev">⌄</span>
+            </div>
+            <div class="section-content">
+              <p class="editable" data-path="months.${idx}.focus">${m.focus}</p>
+              <div class="footerline">
+                <span class="goal editable" data-path="months.${idx}.goal">${m.goal}</span>
+                <span class="owner editable" data-path="months.${idx}.owner">Owner: ${m.owner}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>`;
+  });
+  document.getElementById('roadmap').innerHTML=html;
+  updateProgress();
+  bindEditables();
+}
+function updateProgress(){const vis=data.months.filter(m=>active==='all'||m.phase===active); const pct=vis.length?Math.round(vis.reduce((a,m)=>a+(m.progress||0),0)/vis.length):0; document.getElementById('progressFill').style.width=pct+'%'; document.getElementById('progressText').innerText=pct+'%'}
+function render(){renderStatic();renderFilters();renderRoadmap();bindEditables()}
+function setFilter(f){active=f;renderFilters();renderRoadmap()}
+function toggleCard(id){if(document.body.classList.contains('editing')&&event.target.classList.contains('editable'))return; document.getElementById('card-'+id).classList.toggle('open')}
+function toggleSection(id,e){if(e){e.stopPropagation();} const el=document.getElementById(id); if(el) el.classList.toggle('section-open')}
+function expandAll(){document.querySelectorAll('.card').forEach(c=>c.classList.add('open'))}
+function collapseAll(){document.querySelectorAll('.card').forEach(c=>c.classList.remove('open'))}
+function toggleEdit(){document.body.classList.toggle('editing'); document.getElementById('editToggle').innerText='Edit mode: '+(document.body.classList.contains('editing')?'On':'Off'); bindEditables()}
+function addTask(mi){data.months[mi].tasks.push(['📌','New action — click to edit']);save();renderRoadmap();document.getElementById('card-'+data.months[mi].id).classList.add('open')}
+function removeTask(mi,ti){data.months[mi].tasks.splice(ti,1);save();renderRoadmap();document.getElementById('card-'+data.months[mi].id).classList.add('open')}
+function resetEdits(){if(confirm('Reset all edits to the default Wilbur Repp CTE dashboard?')){localStorage.removeItem(STORE);load();render()}}
+function downloadHtml(){const blob=new Blob([document.documentElement.outerHTML],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Wilbur_Repp_CTE_Hybrid_Executive_Dashboard.html';a.click();URL.revokeObjectURL(a.href)}
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();save()}});
+load();render();
+</script>
+</body>
+</html>
