@@ -146,7 +146,7 @@ const seed = {
     { title: "Attend May 21 Scholarship Event", status: "Open", owner: "Randy, Marilyn, Allyson, Connie", due: "May 21, 2026", priority: "Medium" },
   ],
   members: [
-    { name: "Alan Sutliff", role: "President", initials: "AS", email: "asutliff@me.com",
+    { name: "Alan Sutliff", role: "President", initials: "AS", email: "president@kentschoolsfoundation.org",
       bio: "Alan and his partner have lived in the Kent School District for over twenty years. He currently works for the Washington Education Association representing educators in Renton. A founding member of KSF, Alan believes strongly in equitable funding for public education." },
     { name: "Allyson Johnson", role: "Past President", initials: "AJ", email: "ptamom@q.com",
       bio: "Allyson has been a tireless advocate for kids and public education for over 13 years with KSF. She raised 3 children in the Kent School District and worked for KSD as a Health Tech and Administrative Assistant for 15 years." },
@@ -158,7 +158,7 @@ const seed = {
       bio: "Marilyn taught at Jenkins Creek Elementary School for 32 years after joining KSD in 1990. She is an active member of the Kent Educators of Color Network and deeply committed to ensuring opportunities are accessible to every child regardless of zip code or background." },
     { name: "Sharn Shoker", role: "VP Communications", initials: "SS", email: "sharnkaur15@gmail.com",
       bio: "Sharn is a lifelong Kent resident and proud KSD graduate. She attended Emerald Park Elementary, Meeker Middle School, and Kent Ridge High School. She is now raising a future KSD student and is honored to give back to the system that shaped her." },
-    { name: "Marquise Dixon", role: "Executive Director", initials: "MD", email: "marquise@kentschoolsfoundation.org",
+    { name: "Marquise Dixon", role: "Executive Director", initials: "MD", email: "ed@kentschoolsfoundation.org",
       bio: "Marquise brings visionary nonprofit leadership to KSF, most recently serving as CEO of a Tacoma nonprofit serving 1,500+ students and families annually. He expanded employer partnerships, grew programming, and strengthened organizational sustainability." },
   ],
   documents: [
@@ -393,15 +393,25 @@ export default function App(){
         <div className="panel">
           <div className="panel-header"><div><div className="section-kicker">Board Composition</div><h3>Members</h3></div></div>
           <div className="member-grid">
-            {data.members.map((m,i)=><div className="member" key={i}>
+            {data.members.map((m,i)=>{
+              const [open,setOpen]=React.useState(false);
+              return <div className={"member"+(open?" member-open":"")} key={i}>
               <div className="avatar"><Editable value={m.initials} onChange={v=>update(["members",i,"initials"],v)} editMode={editMode}/></div>
               <div className="member-info">
-                <strong><Editable value={m.name} onChange={v=>update(["members",i,"name"],v)} editMode={editMode}/></strong>
-                <span><Editable value={m.role} onChange={v=>update(["members",i,"role"],v)} editMode={editMode}/></span>
-                {m.email && <a href={`mailto:${m.email}`} className="member-email">{m.email}</a>}
-                {m.bio && <p className="member-bio">{m.bio}</p>}
+                <div className="member-header" onClick={()=>setOpen(o=>!o)} style={{cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                  <div>
+                    <strong><Editable value={m.name} onChange={v=>update(["members",i,"name"],v)} editMode={editMode}/></strong>
+                    <span><Editable value={m.role} onChange={v=>update(["members",i,"role"],v)} editMode={editMode}/></span>
+                  </div>
+                  <span className="member-toggle">{open?"▲":"▼"}</span>
+                </div>
+                {open && <>
+                  {m.email && <a href={`mailto:${m.email}`} className="member-email">{m.email}</a>}
+                  {m.bio && <p className="member-bio">{m.bio}</p>}
+                </>}
               </div>
-            </div>)}
+            </div>;
+            })}
           </div>
         </div>
       </section>
