@@ -188,6 +188,33 @@ function Editable({ value, onChange, editMode, className="", multiline=false }){
 
 function Pill({ children, tone="green" }){ return <span className={`pill ${tone}`}>{children}</span>; }
 
+
+function MemberCard({ m, i, update, editMode }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className={"member" + (open ? " member-open" : "")}>
+      <div className="avatar">
+        <Editable value={m.initials} onChange={v=>update(["members",i,"initials"],v)} editMode={editMode}/>
+      </div>
+      <div className="member-info">
+        <div className="member-header" onClick={()=>setOpen(o=>!o)}>
+          <div>
+            <strong><Editable value={m.name} onChange={v=>update(["members",i,"name"],v)} editMode={editMode}/></strong>
+            <span><Editable value={m.role} onChange={v=>update(["members",i,"role"],v)} editMode={editMode}/></span>
+          </div>
+          <span className="member-toggle">{open ? "▲" : "▼"}</span>
+        </div>
+        {open && (
+          <>
+            {m.email && <a href={"mailto:"+m.email} className="member-email">{m.email}</a>}
+            {m.bio && <p className="member-bio">{m.bio}</p>}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function App(){
   const [data,setData] = useState(load);
   const [editMode,setEditMode] = useState(false);
@@ -393,25 +420,7 @@ export default function App(){
         <div className="panel">
           <div className="panel-header"><div><div className="section-kicker">Board Composition</div><h3>Members</h3></div></div>
           <div className="member-grid">
-            {data.members.map((m,i)=>{
-              const [open,setOpen]=React.useState(false);
-              return <div className={"member"+(open?" member-open":"")} key={i}>
-              <div className="avatar"><Editable value={m.initials} onChange={v=>update(["members",i,"initials"],v)} editMode={editMode}/></div>
-              <div className="member-info">
-                <div className="member-header" onClick={()=>setOpen(o=>!o)} style={{cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                  <div>
-                    <strong><Editable value={m.name} onChange={v=>update(["members",i,"name"],v)} editMode={editMode}/></strong>
-                    <span><Editable value={m.role} onChange={v=>update(["members",i,"role"],v)} editMode={editMode}/></span>
-                  </div>
-                  <span className="member-toggle">{open?"▲":"▼"}</span>
-                </div>
-                {open && <>
-                  {m.email && <a href={`mailto:${m.email}`} className="member-email">{m.email}</a>}
-                  {m.bio && <p className="member-bio">{m.bio}</p>}
-                </>}
-              </div>
-            </div>;
-            })}
+            {data.members.map((m,i)=><MemberCard key={i} m={m} i={i} update={update} editMode={editMode}/>)}
           </div>
         </div>
       </section>
