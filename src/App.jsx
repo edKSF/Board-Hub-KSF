@@ -501,6 +501,7 @@ export default function App(){
             })}
           </div>)}
         </div>
+        </>}
       </section>
 
       <section className="panel action-panel">
@@ -520,7 +521,7 @@ export default function App(){
             <span><Editable value={t.due} onChange={v=>update(["tasks",i,"due"],v)} editMode={editMode}/></span>
             <span><Pill tone={String(t.priority).toLowerCase()==="high"?"gold":"green"}><Editable value={t.priority} onChange={v=>update(["tasks",i,"priority"],v)} editMode={editMode}/></Pill></span>
           </div>)}
-        </div>
+        </div>}
       </section>
       <section className="panel repp-panel" id="roadmap" style={{marginTop:16}}>
         <div className="panel-header" style={{cursor:"pointer"}} onClick={()=>setRoadmapOpen(o=>!o)}>
