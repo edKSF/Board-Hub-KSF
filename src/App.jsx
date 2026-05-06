@@ -292,6 +292,7 @@ export default function App(){
       <div className="brand">KSF BoardHub</div>
       <button onClick={()=>setEditMode(!editMode)} className={editMode?"btn gold":"btn"}>{editMode ? "Exit edit mode" : "Edit mode"}</button>
       <button className="btn ghost" onClick={exportEdits}>Export edits</button>
+      <button className="btn ghost signout" onClick={()=>{localStorage.removeItem("ksf_auth");window.location.reload();}}>Sign Out</button>
       <label className="btn ghost file-label">Import edits<input type="file" accept="application/json" onChange={importEdits}/></label>
       <button className="btn ghost" onClick={()=>{ localStorage.removeItem("ksf_auth"); window.location.reload(); }}>Logout</button>
       <button className="btn danger" onClick={()=>{ if(confirm("Reset dashboard to default content?")){ localStorage.removeItem(STORAGE_KEY); setData(clone(seed)); }}}>Reset</button>
